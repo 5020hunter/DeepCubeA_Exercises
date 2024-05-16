@@ -54,6 +54,8 @@ Use `env.expand(states)` to get a list of next states for each state as well as 
 
 # Edits made (to prevent an essay of a commit message)
 - Changed deprecated `np.float` to `np.float32`
-- Completed `\to_implement\.functions.py`
+- Completed `\to_implement\.functions.py` for exercise 1
 - Changed `batch_size` variable value for improved performance
 - Logged output to `ex_1_output.txt`
+- Completed `\to_implement\.functions.py` for exercise 2
+- Logged output to `ex_2_output.txt`

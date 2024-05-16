@@ -22,7 +22,7 @@ def main():
     # get nnet model
     nnet: nn.Module = get_nnet_model()
     device = torch.device('cpu')
-    batch_size: int = 100
+    batch_size: int = 250
     num_itrs_per_vi_update: int = 200
     num_vi_updates: int = 50
 

@@ -6,6 +6,8 @@ import numpy as np
 from environments.environment_abstract import Environment, State
 from time import time
 
+from utils import misc_utils
+
 BATCH_SIZE = 250
 
 def get_nnet_model() -> nn.Module:
@@ -65,4 +67,22 @@ def train_nnet(nnet: nn.Module, states_nnet: np.ndarray, outputs: np.ndarray, ba
 
 
 def value_iteration(nnet, device, env: Environment, states: List[State]) -> List[float]:
-    pass
+    states_exp, tc_l = env.expand(states)
+    batches_count = len(states_exp) // BATCH_SIZE
+
+    output = []
+
+    with torch.no_grad():
+        for i in range(batches_count):
+            states_exp_flat, states_split_idxs = misc_utils.flatten(states_exp[i*BATCH_SIZE : (i+1)*BATCH_SIZE])
+            states_exp_flat_tensor = torch.tensor(env.state_to_nnet_input(states_exp_flat), dtype=torch.float32)
+            tmp = nnet(states_exp_flat_tensor)
+            output.extend(misc_utils.unflatten(tmp.tolist(), states_split_idxs))
+    
+    J = np.array(output).squeeze()
+    g = np.array(tc_l)
+
+    is_goal = env.is_solved(states)
+    J_prime = ((g+J).min(1)) * np.logical_not(is_goal)
+
+    return J_prime.tolist()
