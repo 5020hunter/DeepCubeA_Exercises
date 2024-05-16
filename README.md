@@ -51,3 +51,9 @@ The functions `misc_utils.flatten` and `misc_utils.unflatten` may help you with 
 Use `env.state_to_nnet_input(states)` to convert a list of states to their numpy representation.
 
 Use `env.expand(states)` to get a list of next states for each state as well as the transition costs
+
+# Edits made (to prevent an essay of a commit message)
+- Changed deprecated `np.float` to `np.float32`
+- Completed `\to_implement\.functions.py`
+- Changed `batch_size` variable value for improved performance
+- Logged output to `ex_1_output.txt`

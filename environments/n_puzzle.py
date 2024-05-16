@@ -33,7 +33,7 @@ class NPuzzle(Environment):
         if self.dim <= 15:
             self.dtype = np.uint8
         else:
-            self.dtype = np.int
+            self.dtype = np.int32
 
         # Solved state
         self.goal_tiles: np.ndarray = np.concatenate((np.arange(1, self.dim * self.dim), [0])).astype(self.dtype)
@@ -172,7 +172,7 @@ class NPuzzle(Environment):
                 for j in range(n):
                     z_idx = np.ravel_multi_index((i, j), (n, n))
 
-                    state = np.ones((n, n), dtype=np.int)
+                    state = np.ones((n, n), dtype=np.float32)
                     state[i, j] = 0
 
                     is_eligible: bool = False

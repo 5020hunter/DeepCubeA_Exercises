@@ -17,7 +17,7 @@ from to_implement.functions import get_nnet_model, train_nnet
 def sample_training_data(states: List[State], outputs: np.ndarray, env: Environment, num_samp_total: int):
     max_cost_to_go: int = int(np.max(outputs))
 
-    samp_idxs: np.array = np.zeros(0, dtype=np.int)
+    samp_idxs: np.array = np.zeros(0, dtype=np.int32)
     num_per_cost_to_go: List[int] = split_evenly(num_samp_total, max_cost_to_go + 1)
 
     for cost_to_go, num_samp in zip(range(max_cost_to_go + 1), num_per_cost_to_go):
@@ -44,7 +44,7 @@ def main():
     # get nnet model
     nnet: nn.Module = get_nnet_model()
     device = torch.device('cpu')
-    batch_size: int = 100
+    batch_size: int = 250
     num_itrs: int = 10000
 
     # get data
